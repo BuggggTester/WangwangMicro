@@ -4,7 +4,7 @@
 FROM openjdk:21-slim
 
 # 将 JAR 文件复制到容器中
-COPY target/wangwang-order-part.jar /app.jar
+COPY target/demo-0.0.1-SNAPSHOT.jar /app.jar
 
 # 运行 Spring Boot 应用
 ENTRYPOINT ["java", "-jar", "/app.jar"]
