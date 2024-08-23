@@ -18,7 +18,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void createOrder(Order Order) {
         Timestamp now = new Timestamp(System.currentTimeMillis());
-        Order.setOrder_create_time(now);
+        Order.setOrderCreateTime(now);
 
         orderMapper.createOrder(Order);
     }
