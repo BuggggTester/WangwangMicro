@@ -72,7 +72,7 @@ pipeline {
                 script {
                     try {
                         // 使用 Docker Compose 启动后端和数据库服务
-                        bat 'docker-compose -f docker-compose.yml up -d'
+                        bat 'docker-compose -f compose.yaml up -d'
                     } catch (Exception e) {
                           echo "Docker Compose failed: ${e.message}"
                           currentBuild.result = 'FAILURE'
