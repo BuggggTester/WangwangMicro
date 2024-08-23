@@ -5,7 +5,7 @@ services:
   app:
     image: xsrkt26/wangwang:hotel-latest
     ports:
-      - "8081:8081"
+      - "8082:8081"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/wangwang_hotel
       SPRING_DATASOURCE_USERNAME: your_db_user
