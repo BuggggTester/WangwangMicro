@@ -6,9 +6,6 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 @Data
 @Component
 @Slf4j
@@ -38,6 +35,6 @@ public class TripOrder {
     @Column(nullable = false, name = "seat_type")
     private SeatType seatType;
 
-    @Column(nullable = false, name = "passager_id")
-    private int passagerId;
+    @Column(nullable = false, name = "passage_id")
+    private int passageId;
 }

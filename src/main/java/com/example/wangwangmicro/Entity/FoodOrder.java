@@ -22,7 +22,7 @@ public class FoodOrder {
     @Column(nullable = false, name = "trip_id")
     private int tripId;
 
-    @Column(nullable = false, name = "food_id")
+    @Column(nullable = false, name = "quantity")
     private int quantity = 0;
 
 }
