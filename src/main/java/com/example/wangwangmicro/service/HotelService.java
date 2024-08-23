@@ -1,6 +1,6 @@
-package com.example.wangwanghotelpart.service;
+package com.example.wangwangmicro.service;
 
-import com.example.wangwanghotelpart.common.constant.RoomType;
+import com.example.wangwangmicro.common.constant.RoomType;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

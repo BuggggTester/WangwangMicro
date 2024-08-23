@@ -1,6 +1,6 @@
-package com.example.wangwanghotelpart.dao;
+package com.example.wangwangmicro.dao;
 
-import com.example.wangwanghotelpart.common.constant.RoomType;
+import com.example.wangwangmicro.common.constant.RoomType;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

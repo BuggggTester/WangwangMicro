@@ -1,6 +1,6 @@
-package com.example.wangwanghotelpart.entity;
+package com.example.wangwangmicro.entity;
 
-import com.example.wangwanghotelpart.common.constant.RoomType;
+import com.example.wangwangmicro.common.constant.RoomType;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.io.Serializable;

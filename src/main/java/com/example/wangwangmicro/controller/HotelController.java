@@ -1,7 +1,7 @@
-package com.example.wangwanghotelpart.controller;
+package com.example.wangwangmicro.controller;
 
-import com.example.wangwanghotelpart.common.constant.RoomType;
-import com.example.wangwanghotelpart.service.HotelService;
+import com.example.wangwangmicro.common.constant.RoomType;
+import com.example.wangwangmicro.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

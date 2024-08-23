@@ -1,7 +1,7 @@
-package com.example.wangwanghotelpart.service;
+package com.example.wangwangmicro.service;
 
-import com.example.wangwanghotelpart.common.constant.RoomType;
-import com.example.wangwanghotelpart.dao.HotelMapper;
+import com.example.wangwangmicro.common.constant.RoomType;
+import com.example.wangwangmicro.dao.HotelMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

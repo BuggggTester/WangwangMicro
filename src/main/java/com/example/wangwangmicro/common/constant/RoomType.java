@@ -1,4 +1,4 @@
-package com.example.wangwanghotelpart.common.constant;
+package com.example.wangwangmicro.common.constant;
 
 /**
  *

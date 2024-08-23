@@ -1,4 +1,4 @@
-package com.example.wangwanghotelpart.entity;
+package com.example.wangwangmicro.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
