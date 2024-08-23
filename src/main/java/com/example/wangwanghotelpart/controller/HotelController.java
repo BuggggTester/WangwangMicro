@@ -1,0 +1,76 @@
+package com.example.wangwanghotelpart.controller;
+
+import com.example.wangwanghotelpart.common.constant.RoomType;
+import com.example.wangwanghotelpart.service.HotelService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+
+@RestController
+@RequestMapping("/api/hotels")
+public class HotelController {
+
+    @Autowired
+    private HotelService hotelService;
+
+    /**
+     * 检查指定酒店的房间是否有足够的剩余数量在指定日期范围内。
+     *
+     * @param hotelId    酒店ID
+     * @param roomType   房间类型
+     * @param startDate  起始日期
+     * @param endDate    结束日期
+     * @return 是否有足够的房间
+     */
+    @GetMapping("/hasAbilityRoom")
+    public boolean hasAbilityRoom(
+            @RequestParam int hotelId,
+            @RequestParam RoomType roomType,
+            @RequestParam("start_date") String startDate,
+            @RequestParam("end_date") String endDate) {
+        LocalDate start = LocalDate.parse(startDate);
+        LocalDate end = LocalDate.parse(endDate);
+        return hotelService.hasAbilityRoom(hotelId, roomType, start, end);
+    }
+
+    /**
+     * 获取指定酒店在指定日期范围内的剩余房间数量。
+     *
+     * @param hotelId    酒店ID
+     * @param roomType   房间类型
+     * @param startDate  起始日期
+     * @param endDate    结束日期
+     * @return 剩余房间数量
+     */
+    @GetMapping("/abilityRoomQuantity")
+    public int getAbilityRoomQuantity(
+            @RequestParam int hotelId,
+            @RequestParam RoomType roomType,
+            @RequestParam("start_date") String startDate,
+            @RequestParam("end_date") String endDate) {
+        LocalDate start = LocalDate.parse(startDate);
+        LocalDate end = LocalDate.parse(endDate);
+        return hotelService.getAbilityRoomQuantity(hotelId, roomType, start, end);
+    }
+
+    /**
+     * 预定指定酒店在指定日期范围内的房间。
+     *
+     * @param hotelId    酒店ID
+     * @param roomType   房间类型
+     * @param startDate  起始日期
+     * @param endDate    结束日期
+     * @return 预定结果
+     */
+    @PostMapping("/bookRoom")
+    public int bookRoom(
+            @RequestParam int hotelId,
+            @RequestParam RoomType roomType,
+            @RequestParam("start_date") String startDate,
+            @RequestParam("end_date") String endDate) {
+        LocalDate start = LocalDate.parse(startDate);
+        LocalDate end = LocalDate.parse(endDate);
+        return hotelService.bookRoom(hotelId, roomType, start, end);
+    }
+}

@@ -1,10 +1,10 @@
-package com.example.wangwangmicro;
+package com.example.wangwanghotelpart;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class WangwangMicroApplicationTests {
+class WangwanghotelPartApplicationTests {
 
 	@Test
 	void contextLoads() {
