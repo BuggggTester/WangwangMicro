@@ -107,8 +107,9 @@ pipeline {
                     try {
                         withCredentials([file(credentialsId: 'kubeconfig-credentials-id', variable: 'KUBECONFIG_FILE')]) {
                             bat """
-                            kubectl --kubeconfig=%KUBECONFIG_FILE% apply -f kubernetes\\deployment.yaml
-                            """
+                                kubectl --kubeconfig=%KUBECONFIG_FILE% apply -f kubernetes/deployment.yaml
+                                kubectl --kubeconfig=%KUBECONFIG_FILE% apply -f kubernetes/hotel-service.yaml
+                                """
                         }
                     } catch (Exception e) {
                         echo "Kubernetes deployment failed: ${e.message}"
