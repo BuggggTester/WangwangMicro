@@ -1,7 +1,7 @@
 package com.example.wangwangmicro.Entity;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.example.wangwangmicro.constant.SeatType;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -13,26 +13,31 @@ import java.sql.Timestamp;
 @Component
 @Slf4j
 public class TripOrder {
-    private int order_id;
-    private Date order_time;
-    private int user_id;
-    private String  state;
-    private double payment;
-    private int trip_id;
-    private int carriage;
-    private int row;
-    private char seat;
-    private Timestamp payTime;
-    private String payway;
-    private String from_place;
-    private String to_place;
-    private String seat_type;
-    private int pid;
-    @ManyToOne
-    @JoinColumn(name = "pid", referencedColumnName = "pid") // Assuming "pid" is the foreign key in the orders table
-    private Passenger passenger; // Assuming Passenger is the entity representing passengers
-    @ManyToOne
-    @JoinColumn(name = "trip_id", referencedColumnName = "trip_id")
-    private Trip trip;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
+    @Column(nullable = false, name = "trip_id")
+    private int tripId;
+
+    @Column(nullable = false, name = "carriage")
+    private int carriage;
+
+    @Column(nullable = false, name = "row")
+    private int row;
+
+    @Column(nullable = false, name = "seat")
+    private char seat;
+
+    @Column(nullable = false, name = "departure_id")
+    private int departureId;
+
+    @Column(nullable = false, name = "destination_id")
+    private int destinationId;
+
+    @Column(nullable = false, name = "seat_type")
+    private SeatType seatType;
+
+    @Column(nullable = false, name = "passager_id")
+    private int passagerId;
 }

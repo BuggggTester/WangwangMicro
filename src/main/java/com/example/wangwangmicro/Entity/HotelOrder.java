@@ -1,5 +1,6 @@
 package com.example.wangwangmicro.Entity;
 
+import com.example.wangwangmicro.constant.RoomType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,9 @@ public class HotelOrder {
 
     @Column(nullable = false, name = "hotel_id")
     private int hotelId;
+
+    @Column(nullable = false, name = "room_type")
+    private RoomType roomType;
 
     @Column(name = "check_in_date", nullable = false)
     private Date checkInDate;
