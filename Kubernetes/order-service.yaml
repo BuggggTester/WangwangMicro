@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-service
+  labels:
+    app: order
+spec:
+  selector:
+    app: order
+  ports:
+    - protocol: TCP
+      port: 80          # Service暴露的端口
+      targetPort: 8080  # order容器内的端口
+  type: ClusterIP      # 默认类型，服务只在集群内部可访问

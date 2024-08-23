@@ -107,7 +107,8 @@ pipeline {
                     try {
                         withCredentials([file(credentialsId: 'kubeconfig-credentials-id', variable: 'KUBECONFIG_FILE')]) {
                             bat """
-                            kubectl --kubeconfig=%KUBECONFIG_FILE% apply -f kubernetes\\deployment.yaml
+                            kubectl --kubeconfig=%KUBECONFIG_FILE% apply -f kubernetes/deployment.yaml
+                            kubectl --kubeconfig=%KUBECONFIG_FILE% apply -f kubernetes/order-service.yaml
                             """
                         }
                     } catch (Exception e) {
