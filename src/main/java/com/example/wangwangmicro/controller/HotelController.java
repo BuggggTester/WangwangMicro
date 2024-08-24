@@ -1,5 +1,6 @@
 package com.example.wangwangmicro.controller;
 
+import com.example.wangwangmicro.client.HotelServiceClient;
 import com.example.wangwangmicro.common.constant.RoomType;
 import com.example.wangwangmicro.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ public class HotelController {
 
     @Autowired
     private HotelService hotelService;
+
+    @Autowired
+    private HotelServiceClient hotelClient;
 
     /**
      * 检查指定酒店的房间是否有足够的剩余数量在指定日期范围内。
@@ -71,6 +75,9 @@ public class HotelController {
             @RequestParam("end_date") String endDate) {
         LocalDate start = LocalDate.parse(startDate);
         LocalDate end = LocalDate.parse(endDate);
-        return hotelService.bookRoom(hotelId, roomType, start, end);
+        int returnValue =  hotelService.bookRoom(hotelId, roomType, start, end);
+        if (returnValue == 1) {
+            
+        }
     }
 }
