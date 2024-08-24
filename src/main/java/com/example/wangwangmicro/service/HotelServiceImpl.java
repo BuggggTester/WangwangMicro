@@ -1,6 +1,6 @@
 package com.example.wangwangmicro.service;
 
-import com.example.wangwangmicro.client.HotelServiceClient;
+import com.example.wangwangmicro.client.OrderClient;
 import com.example.wangwangmicro.common.constant.RoomType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,11 +11,11 @@ import java.time.LocalDate;
 public class HotelServiceImpl implements HotelService {
 
     @Autowired
-    private HotelServiceClient hotelServiceClient;
+    private OrderClient orderClient;
 
 
     public boolean isRoomAvailable(int hotelId, String roomType, String startDate, String endDate) {
-        return hotelServiceClient.checkRoomAvailability(hotelId, roomType, startDate, endDate);
+        return orderClient.checkRoomAvailability(hotelId, roomType, startDate, endDate);
     }
 
     @Override

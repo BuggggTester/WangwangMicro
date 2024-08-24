@@ -1,6 +1,6 @@
 package com.example.wangwangmicro.controller;
 
-import com.example.wangwangmicro.client.HotelServiceClient;
+import com.example.wangwangmicro.client.OrderClient;
 import com.example.wangwangmicro.common.constant.RoomType;
 import com.example.wangwangmicro.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +16,10 @@ public class HotelController {
     private HotelService hotelService;
 
     @Autowired
-    private OrderServiceClient orderServiceClient;
+    private OrderClient orderClient;
 
     @Autowired
-    private HotelServiceClient hotelClient;
+    private OrderClient hotelClient;
 
     /**
      * 检查指定酒店的房间是否有足够的剩余数量在指定日期范围内。
@@ -83,7 +83,15 @@ public class HotelController {
             return returnValue;
         }
         else {
-
+            orderClient.createOrder()
         }
+    }
+
+    public OrderClient getOrderClient() {
+        return orderClient;
+    }
+
+    public void setOrderClient(OrderClient orderClient) {
+        this.orderClient = orderClient;
     }
 }
