@@ -16,6 +16,9 @@ public class HotelController {
     private HotelService hotelService;
 
     @Autowired
+    private OrderServiceClient orderServiceClient;
+
+    @Autowired
     private HotelServiceClient hotelClient;
 
     /**
@@ -76,8 +79,11 @@ public class HotelController {
         LocalDate start = LocalDate.parse(startDate);
         LocalDate end = LocalDate.parse(endDate);
         int returnValue =  hotelService.bookRoom(hotelId, roomType, start, end);
-        if (returnValue == 1) {
-            
+        if (returnValue == 0) {
+            return returnValue;
+        }
+        else {
+
         }
     }
 }

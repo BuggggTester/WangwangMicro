@@ -13,6 +13,7 @@ public class HotelServiceImpl implements HotelService {
     @Autowired
     private HotelServiceClient hotelServiceClient;
 
+
     public boolean isRoomAvailable(int hotelId, String roomType, String startDate, String endDate) {
         return hotelServiceClient.checkRoomAvailability(hotelId, roomType, startDate, endDate);
     }
