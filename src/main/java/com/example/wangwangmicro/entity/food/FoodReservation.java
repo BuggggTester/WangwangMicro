@@ -22,6 +22,8 @@ public class FoodReservation {
     @Transient
     private int food_id;
     private int quantity = 0;
+    @Transient
+    private int trip_id;
 
     @ManyToOne
     @JoinColumn(name = "food_id", referencedColumnName = "id")
