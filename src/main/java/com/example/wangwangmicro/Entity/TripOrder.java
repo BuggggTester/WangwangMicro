@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 @Slf4j
+@Entity
 public class TripOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +21,7 @@ public class TripOrder {
     @Column(nullable = false, name = "carriage")
     private int carriage;
 
-    @Column(nullable = false, name = "row")
+    @Column(nullable = false, name = "`row`")
     private int row;
 
     @Column(nullable = false, name = "seat")
