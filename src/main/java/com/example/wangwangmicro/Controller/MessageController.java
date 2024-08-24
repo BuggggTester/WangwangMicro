@@ -19,10 +19,12 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/message")
 public class MessageController {
+
     @Autowired
     MessageService messageService;
+
     @PostMapping(value = "/create")
-    public R createMessage(@RequestBody Map<String, String> messageMap){
+    public R CreateMessage(@RequestBody Map<String, String> messageMap){
         String send = messageMap.get("sender");
         int receive = Integer.parseInt(messageMap.get("receiver"));
         String title = messageMap.get("title");
@@ -38,43 +40,43 @@ public class MessageController {
     }
 
     @GetMapping(value = "/baseselect")
-    public List<Message> selectMessage(@RequestParam("receiver") int receiver){
+    public R SelectMessageByReceiver(@RequestParam("receiver") int receiver){
         List<Message> messages = messageService.SelectMessageByReceiver(receiver);
-        return messages;
+        return R.ok().put("messages", messages);
     }
 
     @GetMapping(value = "/numberselect")
-    public int selectNumberOfMessage(@RequestParam("receiver") int receiver){
+    public R CountMessageByReceiver(@RequestParam("receiver") int receiver){
         int num = messageService.CountNumberOfMessageByReceiver(receiver);
-        return num;
+        return R.ok().put("num", num);
     }
 
     @GetMapping(value = "/unreadnumberselect")
-    public int selectNumberOfUnreadMessage(@RequestParam("receiver") int receiver){
+    public R CountUnreadMessageByReceiver(@RequestParam("receiver") int receiver){
         int num = messageService.CountNumberOfUnreadMessageByReceiver(receiver);
-        return num;
+        return R.ok().put("num", num);
     }
 
     @GetMapping(value = "/unreadselect")
-    public List<Message> selectUnreadMessage(@RequestParam("receiver") int receiver){
+    public R SelectUnreadMessageByReceiver(@RequestParam("receiver") int receiver){
         List<Message> messages = messageService.SelectUnreadMessageByReceiver(receiver);
-        return messages;
+        return R.ok().put("messages", messages);
     }
 
     @GetMapping(value = "/dateselect")
-    public List<Message> selectMessageByDate(@RequestParam("receiver") int receiver, @RequestParam("send_date") LocalDate send_date){
+    public R SelectMessageByReceiverAndDate(@RequestParam("receiver") int receiver, @RequestParam("send_date") LocalDate send_date){
         List<Message> messages = messageService.SelectMessageByDateAndReceiver(receiver, send_date);
-        return messages;
+        return R.ok().put("messages", messages);
     }
 
     @GetMapping(value = "/unreaddateselect")
-    public List<Message> selectUnreadMessageByDate(@RequestParam("receiver") int receiver, @RequestParam("send_date") LocalDate send_date){
+    public R SelectUnreadMessageByReceiverAndDate(@RequestParam("receiver") int receiver, @RequestParam("send_date") LocalDate send_date){
         List<Message> messages = messageService.SelectUnreadMessageByDateAndReceiver(receiver, send_date);
-        return messages;
+        return R.ok().put("messages", messages);
     }
 
     @PutMapping(value = "/setread")
-    public R setRead(@RequestParam("message_id") int message_id){
+    public R SetRead(@RequestParam("message_id") int message_id){
         try {
             messageService.SetRead(message_id);
             return R.ok("已设置为已读。");
