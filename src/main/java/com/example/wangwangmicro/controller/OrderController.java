@@ -1,6 +1,7 @@
 package com.example.wangwangmicro.controller;
 
 import com.example.wangwangmicro.Entity.Order;
+import com.example.wangwangmicro.client.HotelRequest;
 import com.example.wangwangmicro.constant.OrderType;
 import com.example.wangwangmicro.constant.PaymentMethod;
 import com.example.wangwangmicro.service.OrderService;
@@ -13,6 +14,8 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.wangwangmicro.constant.OrderType.HOTEL;
+
 
 @RestController
 @RequestMapping(value = "/Order")
@@ -23,25 +26,21 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping("/create")
-    public R createOrder(@RequestBody Order Order) {
-        try {
-//            int userId = Integer.parseInt(orderMap.get("userId"));
-//            int reservationId = Integer.parseInt(orderMap.get("reservationId"));
-//            OrderType orderType = OrderType.valueOf(orderMap.get("orderType").toUpperCase());
-//            double payment = Double.parseDouble(orderMap.get("payment"));
-
-            orderService.createOrder(Order);
-
-            return R.ok("Order created successfully!").put("id",Order.getId());
-        } catch (NumberFormatException e) {
-            return R.error("Failed to parse number: " + e.getMessage());
-        } catch (IllegalArgumentException e) {
-            return R.error("Invalid order type: " + e.getMessage());
-        } catch (Exception e) {
-            return R.error("Failed to create order: " + e.toString());
-        }
+    @GetMapping("/hotel/bookHotel")
+    int createOrder(@RequestBody HotelRequest hotelRequest) {
+        int reservationId =  orderService.createHotelOrder(hotelRequest);
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        Order order = new Order();
+        order.setUserId(hotelRequest.getUserId());
+        order.setOrderCreateTime(now);
+        order.setOrderType(HOTEL);
+        order.setReservationId(reservationId);
+        order.setPayment(hotelRequest.getPayment());
+        
+        return orderService.createOrder(order);
     }
+
+
     @RequestMapping(value="/confirm")
     public R confirmFoodOrder(@RequestParam("id")int id){
         orderService.confirmOrder(id);

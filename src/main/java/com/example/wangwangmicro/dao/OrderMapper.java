@@ -3,9 +3,12 @@ package com.example.wangwangmicro.dao;
 import com.example.wangwangmicro.Entity.Order;
 import com.example.wangwangmicro.constant.OrderType;
 import com.example.wangwangmicro.constant.PaymentMethod;
+import com.example.wangwangmicro.constant.RoomType;
 import org.apache.ibatis.annotations.*;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -13,13 +16,20 @@ public interface OrderMapper {
 
     //        以下是用户在购买界面需要调用的接口
     //  创建订单
-    //  在创建reservation之前，如果reservation创建失败则不能创建订单。
-    @Insert("INSERT INTO order (user_id, reservation_id, order_type, payment, order_create_time,state) " +
-            "VALUES (#{userId}, #{reservationId}, #{orderType}, #{payment}, #{orderCreateTime}, #{paymentMethod})")
+    //  在创建reservation之后，如果reservation创建失败则不能创建订单。
+    @Insert("INSERT INTO order (user_id, reservation_id, order_type, payment, order_create_time) " +
+            "VALUES (#{userId}, #{reservationId}, #{orderType}, #{payment}, #{orderCreateTime}")
     @SelectKey(statement = "SELECT LAST_INSERT_ID() AS id", keyProperty = "id", before = false, resultType = int.class)
-    void createOrder(Order Order);
-    
-    
+    int createOrder(Order Order);
+
+    @Insert("INSERT INTO hotel_order (hotel_id, room_type, check_in_date, check_out_date) " +
+            "VALUES (#{hotelId}, #{roomType}, #{checkInDate}, #{checkOutDate})")
+    @SelectKey(statement = "SELECT LAST_INSERT_ID() AS id", keyProperty = "id", before = false, resultType = int.class)
+    int createHotelOrder(@Param("hotelId") int hotelId,
+                         @Param("roomType") RoomType roomType,
+                         @Param("checkInDate") LocalDate checkInDate,
+                         @Param("checkOutDate") LocalDate checkOutDate);
+
     // 支付时调用
     @Update("UPDATE order SET state = 'PAID', pay_time = NOW() WHERE id = #{id}")
     int payOrder(@Param("id") int id);

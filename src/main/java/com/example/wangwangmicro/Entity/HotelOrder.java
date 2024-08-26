@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -24,9 +25,9 @@ public class HotelOrder {
     private RoomType roomType;
 
     @Column(name = "check_in_date", nullable = false)
-    private Date checkInDate;
+    private LocalDate checkInDate;
 
     @Column(name="check_out_date", nullable = false)
-    private Date checkOutDate;
+    private LocalDate checkOutDate;
 }
 

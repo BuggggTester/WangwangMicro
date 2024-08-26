@@ -1,6 +1,8 @@
 package com.example.wangwangmicro.service;
 
+import com.example.wangwangmicro.Entity.HotelOrder;
 import com.example.wangwangmicro.Entity.Order;
+import com.example.wangwangmicro.client.HotelRequest;
 import com.example.wangwangmicro.constant.OrderType;
 import com.example.wangwangmicro.constant.PaymentMethod;
 import com.example.wangwangmicro.dao.OrderMapper;
@@ -16,12 +18,17 @@ public class OrderServiceImpl implements OrderService {
     private OrderMapper orderMapper;
 
     @Override
-    public void createOrder(Order Order) {
-        Timestamp now = new Timestamp(System.currentTimeMillis());
-        Order.setOrderCreateTime(now);
-
-        orderMapper.createOrder(Order);
+    public int createOrder(Order order) {
+        return orderMapper.createOrder(order);
     }
+
+    @Override
+    public int createHotelOrder(HotelRequest hotelRequest) {
+        return orderMapper.createHotelOrder(hotelRequest.getHotelId(), hotelRequest.getRoomType(),
+                hotelRequest.getStartDate(), hotelRequest.getEndDate());
+    }
+
+
 
     @Override
     public Order getOrder(int id) {
@@ -102,4 +109,6 @@ public class OrderServiceImpl implements OrderService {
     public boolean payOrder(int id) {
         return orderMapper.payOrder(id) == 1;
     }
+
+
 }
