@@ -1,16 +1,20 @@
 package com.example.wangwangmicro.controller;
 
 import com.example.wangwangmicro.entity.food.Food;
+import com.example.wangwangmicro.client.TripClient;
+import com.example.wangwangmicro.client.TripRequest;
 import com.example.wangwangmicro.entity.R;
 import com.example.wangwangmicro.entity.food.FoodReservation;
 import com.example.wangwangmicro.service.FoodService;
 //import com.example.demo.service.TripService;
-import org.springframework.web.client.RestTemplate; //用于http调用引入其他容器的信息功能
+//import org.springframework.web.client.RestTemplate; //用于http调用引入其他容器的信息功能
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import com.example.wangwangmicro.client.OrderClient;
+import com.example.wangwangmicro.client.OrderRequest;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -30,20 +34,20 @@ public class FoodController {
     @Autowired
     private FoodService foodService;
     @Autowired
-    //private TripService tripService;
-    private RestTemplate restTemplate;
-    @RequestMapping(value="/select/tripId")
+    private TripClient tripClient;
+    @Autowired
+    private OrderClient orderClient;
+
+    @RequestMapping(value="/select/tripId") //查询某时段列车的食物列表,调用了tripClient
     public List<Food> selectFoodsById(@RequestParam("trainId")String trainId, @RequestParam("time") Timestamp time) {
-        //int tripId = tripService.selectIdByTrainAndTime(trainId, time);
-        // 使用 RestTemplate 调用 TripService API：still unkown hahaha
-        String url = "http://trip-service/api/trips/findId?trainId=" + trainId + "&time=" + time;
-        Integer tripId = restTemplate.getForObject(url, Integer.class); 
-        if (tripId == null) {
-            return List.of(); // 错误响应报一下
-        }
+        TripRequest tripRequest = new TripRequest();
+        tripRequest.setTrainId(trainId);
+        tripRequest.setTime(time);
+        Integer tripId = tripClient.selectIdByTrainAndTime(tripRequest); 
         List<Food> foodList = foodService.selectFoodsByTripId(tripId);
         return foodList;
     }
+
     @RequestMapping(value = "/create")
     public R createFood(@RequestParam("foodName") String foodName, @RequestParam("price")double price,@RequestParam("tripId")int tripId) {
         try {
@@ -58,7 +62,13 @@ public class FoodController {
     public R createFoodReservation(@RequestBody FoodReservation foodReservation) {
         try {
             foodService.buyFood(foodReservation);
-            return R.ok("create reservation success").put("reservationId",foodReservation.getId());
+            OrderRequest orderRequest = new OrderRequest();
+            orderRequest.setFoodId(foodReservation.getFoodId());
+            orderRequest.setUserId(foodReservation.getUserId());
+            orderRequest.setTripId(foodReservation.getTripId());
+            orderRequest.setQuantity(foodReservation.getQuantity());
+            orderClient.createOrder(orderRequest);
+            return R.ok("购买成功").put("reservationId", foodReservation.getId());
         }catch (Exception e){
             return R.error(e.toString());
         }

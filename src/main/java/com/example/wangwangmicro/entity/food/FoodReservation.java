@@ -37,4 +37,16 @@ public class FoodReservation {
     //private OrderStatus state;
     @Transient
     private int tid;
+    public int getFoodId() {
+        return this.food_id;
+    }
+    public int getTripId() {
+        return this.trip_id;
+    }
+    public int getUserId() {
+        return this.user_id;
+    }
+    public int getQuantity() {
+        return this.quantity;
+    }
 }

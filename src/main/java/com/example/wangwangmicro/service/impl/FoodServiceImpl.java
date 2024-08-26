@@ -1,12 +1,12 @@
 package com.example.wangwangmicro.service.impl;
 
 import com.example.wangwangmicro.dao.FoodMapper;
+import com.example.wangwangmicro.entity.R;
 import com.example.wangwangmicro.entity.food.Food;
 import com.example.wangwangmicro.entity.food.FoodReservation;
 import com.example.wangwangmicro.service.FoodService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service("foodService")
@@ -30,8 +30,14 @@ public class FoodServiceImpl implements FoodService {
 
 
     @Override
-    public void buyFood(FoodReservation foodReservation) {
+    public R buyFood(FoodReservation foodReservation) {
+        int stock = foodMapper.checkStock(foodReservation.getFoodId());
+        if (stock < foodReservation.getQuantity()) {
+            return R.error("库存不足");
+        }
         foodMapper.buyFood(foodReservation);
+        foodMapper.reduceStock(foodReservation.getFoodId(), foodReservation.getQuantity());
+        return R.ok("购买成功").put("reservationId", foodReservation.getId());
     }
 
     @Override
