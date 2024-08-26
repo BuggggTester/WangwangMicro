@@ -10,4 +10,4 @@ COPY target/demo-0.0.1-SNAPSHOT.jar /app.jar
 ENTRYPOINT ["java", "-jar", "/app.jar"]
 
 # 允许配置端口
-EXPOSE 8081
+EXPOSE 8081Dockerfile

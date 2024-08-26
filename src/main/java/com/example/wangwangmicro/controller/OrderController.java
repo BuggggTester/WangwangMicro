@@ -30,6 +30,7 @@ public class OrderController {
     int createOrder(@RequestBody HotelRequest hotelRequest) {
         int reservationId =  orderService.createHotelOrder(hotelRequest);
         Timestamp now = new Timestamp(System.currentTimeMillis());
+
         Order order = new Order();
         order.setUserId(hotelRequest.getUserId());
         order.setOrderCreateTime(now);
