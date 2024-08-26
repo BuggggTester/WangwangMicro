@@ -1,6 +1,7 @@
 package com.example.wangwangmicro.controller;
 
 import com.example.wangwangmicro.client.OrderClient;
+import com.example.wangwangmicro.client.OrderRequest;
 import com.example.wangwangmicro.common.constant.RoomType;
 import com.example.wangwangmicro.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,35 +64,18 @@ public class HotelController {
 
     /**
      * 预定指定酒店在指定日期范围内的房间。
-     *
-     * @param hotelId    酒店ID
-     * @param roomType   房间类型
-     * @param startDate  起始日期
-     * @param endDate    结束日期
+
      * @return 预定结果
      */
     @PostMapping("/bookRoom")
-    public int bookRoom(
-            @RequestParam int hotelId,
-            @RequestParam RoomType roomType,
-            @RequestParam("start_date") String startDate,
-            @RequestParam("end_date") String endDate) {
-        LocalDate start = LocalDate.parse(startDate);
-        LocalDate end = LocalDate.parse(endDate);
-        int returnValue =  hotelService.bookRoom(hotelId, roomType, start, end);
+    public int bookRoom(@RequestBody OrderRequest orderRequest) {
+        int returnValue =  hotelService.bookRoom(orderRequest.getHotelId(),
+                orderRequest.getRoomType(), orderRequest.getStartDate(), orderRequest.getEndDate());
         if (returnValue == 0) {
             return returnValue;
         }
         else {
-            orderClient.createOrder()
+            return orderClient.createOrder(orderRequest);
         }
-    }
-
-    public OrderClient getOrderClient() {
-        return orderClient;
-    }
-
-    public void setOrderClient(OrderClient orderClient) {
-        this.orderClient = orderClient;
     }
 }
