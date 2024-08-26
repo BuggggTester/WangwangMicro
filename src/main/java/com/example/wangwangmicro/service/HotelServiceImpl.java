@@ -15,7 +15,7 @@ public class HotelServiceImpl implements HotelService {
 
 
     public boolean isRoomAvailable(int hotelId, String roomType, String startDate, String endDate) {
-        return orderClient.checkRoomAvailability(hotelId, roomType, startDate, endDate);
+        return true;
     }
 
     @Override

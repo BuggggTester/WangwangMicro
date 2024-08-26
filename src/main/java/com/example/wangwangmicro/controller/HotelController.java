@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 
 @RestController
-@RequestMapping("/api/hotels")
+@RequestMapping("hotel")
 public class HotelController {
 
     @Autowired
