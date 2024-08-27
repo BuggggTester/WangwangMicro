@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan("com.example.wangwangmicro.dao")
-public class wangwangMicroApplication {
+public class WangwangMicroApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(wangwangMicroApplication.class, args);
+		SpringApplication.run(WangwangMicroApplication.class, args);
 	}
 
 }

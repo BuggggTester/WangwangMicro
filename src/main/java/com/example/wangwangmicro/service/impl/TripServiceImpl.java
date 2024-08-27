@@ -1,6 +1,6 @@
 package com.example.wangwangmicro.service.impl;
 
-import jakarta.annotation.Resource;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.example.wangwangmicro.dao.StationMapper;

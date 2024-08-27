@@ -1,6 +1,6 @@
 package com.example.wangwangmicro.entity.hotel;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
