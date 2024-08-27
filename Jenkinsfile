@@ -54,7 +54,7 @@ pipeline {
                 script {
                     try {
                         sh '''
-                            docker login -t -u user -p testpasswd
+                            docker login -u user -p testpasswd
                             docker build -t $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG .
                         '''
                     } catch (Exception e) {
