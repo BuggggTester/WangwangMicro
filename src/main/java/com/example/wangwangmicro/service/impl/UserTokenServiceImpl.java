@@ -1,9 +1,9 @@
-package com.example.wangwangmicro.wangwang.service.impl;
+package com.example.wangwangmicro.service.impl;
 
-import com.example.wangwang.dao.UserTokenMapper;
-import com.example.wangwang.entity.UserToken;
-import com.example.wangwang.service.UserTokenService;
-import jakarta.annotation.Resource;
+import com.example.wangwangmicro.dao.UserTokenMapper;
+import com.example.wangwangmicro.entity.UserToken;
+import com.example.wangwangmicro.service.UserTokenService;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;

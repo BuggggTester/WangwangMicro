@@ -1,9 +1,6 @@
-package com.example.wangwangmicro.wangwang.service;
+package com.example.wangwangmicro.service;
 
-import com.example.wangwang.entity.UserToken;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.example.wangwangmicro.entity.UserToken;
 
 import java.sql.Timestamp;
 import java.util.Date;

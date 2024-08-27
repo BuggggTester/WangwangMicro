@@ -1,13 +1,15 @@
-package com.example.wangwangmicro.wangwang.dao;
+package com.example.wangwangmicro.dao;
 
-import com.example.wangwang.entity.UserToken;
+import com.example.wangwangmicro.entity.UserToken;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.sql.Timestamp;
 import java.util.Date;
 
+@Mapper
 public interface UserTokenMapper {
     @Select("select * from user_token where token = #{token}")
     UserToken selectByToken(String token);

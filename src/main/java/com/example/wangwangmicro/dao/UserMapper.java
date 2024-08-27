@@ -1,6 +1,6 @@
-package com.example.wangwangmicro.wangwang.dao;
+package com.example.wangwangmicro.dao;
 
-import com.example.wangwang.entity.User;
+import com.example.wangwangmicro.entity.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

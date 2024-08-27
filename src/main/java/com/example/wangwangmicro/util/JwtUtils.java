@@ -1,7 +1,7 @@
-package com.example.wangwangmicro.wangwang.util;
+package com.example.wangwangmicro.util;
 
-import com.example.wangwang.entity.CheckResult;
-import com.example.wangwang.entity.common.JwtConstant;
+import com.example.wangwangmicro.entity.CheckResult;
+import com.example.wangwangmicro.entity.common.JwtConstant;
 import io.jsonwebtoken.*;
 import org.bouncycastle.util.encoders.Base64;
 

@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 @Documented
 public @interface TokenToUser {
     /*
-    return user name
+    return username
      */
     String value() default "user";
 }

@@ -1,13 +1,13 @@
-package com.example.wangwangmicro.wangwang.controller;
+package com.example.wangwangmicro.controller;
 
-import com.example.wangwang.config.annotation.TokenToUser;
-import com.example.wangwang.dao.UserTokenMapper;
-import com.example.wangwang.entity.common.R;
-import com.example.wangwang.entity.User;
-import com.example.wangwang.service.UserService;
-import com.example.wangwang.service.UserTokenService;
-import com.example.wangwang.util.JwtUtils;
-import com.example.wangwang.util.Md5Utils;
+import com.example.wangwangmicro.config.annotation.TokenToUser;
+import com.example.wangwangmicro.dao.UserTokenMapper;
+import com.example.wangwangmicro.entity.common.R;
+import com.example.wangwangmicro.entity.User;
+import com.example.wangwangmicro.service.UserService;
+import com.example.wangwangmicro.service.UserTokenService;
+import com.example.wangwangmicro.util.JwtUtils;
+import com.example.wangwangmicro.util.Md5Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +22,8 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-import static com.example.wangwang.config.PathConfig.avatar;
-import static com.example.wangwang.config.PathConfig.avatarUrl;
+import static com.example.wangwangmicro.config.PathConfig.avatar;
+import static com.example.wangwangmicro.config.PathConfig.avatarUrl;
 
 @CrossOrigin
 @Slf4j

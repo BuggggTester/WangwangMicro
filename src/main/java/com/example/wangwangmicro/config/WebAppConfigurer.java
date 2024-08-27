@@ -1,6 +1,6 @@
 package com.example.wangwangmicro.config;
 
-import com.example.wangwang.config.handler.TokenToUserMethodArgumentResolver;
+import com.example.wangwangmicro.config.handler.TokenToUserMethodArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

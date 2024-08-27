@@ -1,10 +1,10 @@
 package com.example.wangwangmicro.config.handler;
 
-import com.example.wangwang.config.annotation.TokenToUser;
-import com.example.wangwang.dao.UserMapper;
-import com.example.wangwang.dao.UserTokenMapper;
-import com.example.wangwang.entity.User;
-import com.example.wangwang.entity.UserToken;
+import com.example.wangwangmicro.config.annotation.TokenToUser;
+import com.example.wangwangmicro.dao.UserMapper;
+import com.example.wangwangmicro.dao.UserTokenMapper;
+import com.example.wangwangmicro.entity.User;
+import com.example.wangwangmicro.entity.UserToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
+
 @Component
 public class TokenToUserMethodArgumentResolver implements HandlerMethodArgumentResolver {
     @Autowired

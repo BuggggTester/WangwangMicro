@@ -1,9 +1,6 @@
-package com.example.wangwangmicro.wangwang.entity;
+package com.example.wangwangmicro.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
+import javax.persistence.Transient;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

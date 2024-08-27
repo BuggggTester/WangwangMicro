@@ -1,4 +1,4 @@
-package com.example.wangwangmicro.wangwang.entity;
+package com.example.wangwangmicro.entity;
 
 import io.jsonwebtoken.Claims;
 

@@ -1,4 +1,4 @@
-package com.example.wangwangmicro.wangwang.entity.common;
+package com.example.wangwangmicro.entity.common;
 
 /**
  * 系统级静态变量

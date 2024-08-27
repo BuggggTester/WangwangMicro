@@ -1,4 +1,4 @@
-package com.example.wangwangmicro.wangwang.util;
+package com.example.wangwangmicro.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

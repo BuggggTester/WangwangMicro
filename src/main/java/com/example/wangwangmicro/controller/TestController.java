@@ -1,8 +1,8 @@
-package com.example.wangwangmicro.wangwang.controller;
+package com.example.wangwangmicro.controller;
 
-import com.example.wangwang.config.annotation.TokenToUser;
-import com.example.wangwang.entity.User;
-import com.example.wangwang.entity.common.R;
+import com.example.wangwangmicro.config.annotation.TokenToUser;
+import com.example.wangwangmicro.entity.User;
+import com.example.wangwangmicro.entity.common.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

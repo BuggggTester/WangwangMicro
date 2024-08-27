@@ -1,9 +1,9 @@
-package com.example.wangwangmicro.wangwang.service.impl;
+package com.example.wangwangmicro.service.impl;
 
-import com.example.wangwang.dao.UserMapper;
-import com.example.wangwang.entity.User;
-import com.example.wangwang.service.UserService;
-import jakarta.annotation.Resource;
+import com.example.wangwangmicro.dao.UserMapper;
+import com.example.wangwangmicro.entity.User;
+import com.example.wangwangmicro.service.UserService;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

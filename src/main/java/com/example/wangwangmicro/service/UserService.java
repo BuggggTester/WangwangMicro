@@ -1,6 +1,6 @@
-package com.example.wangwangmicro.wangwang.service;
+package com.example.wangwangmicro.service;
 
-import com.example.wangwang.entity.User;
+import com.example.wangwangmicro.entity.User;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
