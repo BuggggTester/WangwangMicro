@@ -54,7 +54,8 @@ pipeline {
                 script {
                     try {
                         sh '''
-                            sudo docker build -t $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG .
+                            docker login -u mosscrowd -p shuhaojun040203
+                            docker build -t $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG .
                         '''
                     } catch (Exception e) {
                         echo "Docker build failed: ${e.message}"
