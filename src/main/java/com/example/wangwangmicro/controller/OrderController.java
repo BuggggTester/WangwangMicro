@@ -2,6 +2,7 @@ package com.example.wangwangmicro.controller;
 
 import com.example.wangwangmicro.Entity.Order;
 import com.example.wangwangmicro.Entity.R;
+import com.example.wangwangmicro.client.FoodRequest;
 import com.example.wangwangmicro.client.HotelRequest;
 import com.example.wangwangmicro.constant.OrderType;
 import com.example.wangwangmicro.constant.PaymentMethod;
@@ -26,20 +27,40 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping("/hotel/bookHotel")
-    int createOrder(@RequestBody HotelRequest hotelRequest) {
+    R createOrder(@RequestBody HotelRequest hotelRequest) {
         int reservationId =  orderService.createHotelOrder(hotelRequest);
         Timestamp now = new Timestamp(System.currentTimeMillis());
 
         Order order = new Order();
         order.setUserId(hotelRequest.getUserId());
+        order.setPayment(hotelRequest.getPayment());
+
         order.setOrderCreateTime(now);
         order.setOrderType(HOTEL);
         order.setReservationId(reservationId);
-        order.setPayment(hotelRequest.getPayment());
-        
-        return orderService.createOrder(order);
+
+        int returnValue = orderService.createOrder(order);
+        return R.ok(String.valueOf(returnValue));
     }
 
+    /*
+    @GetMapping("/food/")
+    R createOrder(@RequestBody FoodRequest foodRequest) {
+        int reservationId =  orderService.createFoodOrder(foodRequest);
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+
+        Order order = new Order();
+        order.setUserId(foodRequest.getUserId());
+        order.setPayment(foodRequest.getPayment());
+
+        order.setOrderCreateTime(now);
+        order.setOrderType(HOTEL);
+        order.setReservationId(reservationId);
+
+        int returnValue = orderService.createOrder(order);
+        return R.ok(String.valueOf(returnValue));
+    }
+*/
 
     @RequestMapping(value="/confirm")
     public R confirmFoodOrder(@RequestParam("id")int id){
