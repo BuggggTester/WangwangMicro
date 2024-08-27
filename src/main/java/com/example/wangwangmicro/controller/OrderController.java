@@ -16,7 +16,6 @@ import java.util.Map;
 
 import static com.example.wangwangmicro.constant.OrderType.HOTEL;
 
-
 @RestController
 @RequestMapping(value = "/Order")
 @CrossOrigin
