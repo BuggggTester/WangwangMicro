@@ -2,6 +2,7 @@ package com.example.wangwangmicro.service;
 
 import com.example.wangwangmicro.Entity.HotelOrder;
 import com.example.wangwangmicro.Entity.Order;
+import com.example.wangwangmicro.client.FoodRequest;
 import com.example.wangwangmicro.client.HotelRequest;
 import com.example.wangwangmicro.constant.OrderType;
 import com.example.wangwangmicro.constant.PaymentMethod;
@@ -26,6 +27,11 @@ public class OrderServiceImpl implements OrderService {
     public int createHotelOrder(HotelRequest hotelRequest) {
         return orderMapper.createHotelOrder(hotelRequest.getHotelId(), hotelRequest.getRoomType(),
                 hotelRequest.getStartDate(), hotelRequest.getEndDate());
+    }
+
+    @Override
+    public int createFoodOrder(FoodRequest foodRequest) {
+        return orderMapper.createFoodOrder(foodRequest.getFoodId());
     }
 
 

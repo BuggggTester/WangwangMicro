@@ -1,6 +1,7 @@
 package com.example.wangwangmicro.controller;
 
 import com.example.wangwangmicro.Entity.Order;
+import com.example.wangwangmicro.client.FoodRequest;
 import com.example.wangwangmicro.client.HotelRequest;
 import com.example.wangwangmicro.constant.OrderType;
 import com.example.wangwangmicro.constant.PaymentMethod;
@@ -37,6 +38,21 @@ public class OrderController {
         order.setOrderType(HOTEL);
         order.setReservationId(reservationId);
         order.setPayment(hotelRequest.getPayment());
+        
+        return orderService.createOrder(order);
+    }
+
+    @GetMapping("/food/buyFood")
+    int createOrder(@RequestBody FoodRequest foodRequest) {
+        int reservationId =  orderService.createFoodOrder(foodRequest);
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+
+        Order order = new Order();
+        order.setUserId(foodRequest.getUserId());
+        order.setOrderCreateTime(now);
+        order.setOrderType(HOTEL);
+        order.setReservationId(reservationId);
+        order.setPayment(foodRequest.getPayment());
         
         return orderService.createOrder(order);
     }

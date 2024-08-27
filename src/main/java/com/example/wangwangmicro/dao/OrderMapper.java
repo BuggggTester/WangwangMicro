@@ -30,6 +30,11 @@ public interface OrderMapper {
                          @Param("checkInDate") LocalDate checkInDate,
                          @Param("checkOutDate") LocalDate checkOutDate);
 
+    @Insert("INSERT INTO food_order (food_id) " +
+            "VALUES (#{foodId})")
+    @SelectKey(statement = "SELECT LAST_INSERT_ID() AS id", keyProperty = "id", before = false, resultType = int.class)
+    int createFoodOrder(@Param("foodId") int hotelId);
+
     // 支付时调用
     @Update("UPDATE order SET state = 'PAID', pay_time = NOW() WHERE id = #{id}")
     int payOrder(@Param("id") int id);

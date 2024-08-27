@@ -2,6 +2,7 @@ package com.example.wangwangmicro.service;
 
 import com.example.wangwangmicro.Entity.HotelOrder;
 import com.example.wangwangmicro.Entity.Order;
+import com.example.wangwangmicro.client.FoodRequest;
 import com.example.wangwangmicro.client.HotelRequest;
 import com.example.wangwangmicro.constant.OrderType;
 import com.example.wangwangmicro.constant.PaymentMethod;
@@ -16,6 +17,7 @@ public interface OrderService {
     int createOrder(Order order);
 
     int createHotelOrder(HotelRequest hotelRequest);
+    int createFoodOrder(FoodRequest foodRequest);
 
     // 根据订单ID获取订单
     Order getOrder(int id);
