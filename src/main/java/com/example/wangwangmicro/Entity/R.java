@@ -1,24 +1,24 @@
-package com.example.wangwangmicro.utils;
+package com.example.wangwangmicro.Entity;
 
+
+import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
 public class R extends HashMap<String, Object> {
 
-    private static final int SUCCESS_CODE = 0;
-    private static final int ERROR_CODE = 500;
+    private static final long serialVersionUID = 1L;
 
     public R() {
-        put("code", SUCCESS_CODE);
-        put("msg", "success");
+        put("code", 200);
     }
 
     public static R error() {
-        return error(ERROR_CODE, "未知异常，请联系管理员");
+        return error(500, "未知异常，请联系管理员");
     }
 
     public static R error(String msg) {
-        return error(ERROR_CODE, msg);
+        return error(500, msg);
     }
 
     public static R error(int code, String msg) {
@@ -44,9 +44,10 @@ public class R extends HashMap<String, Object> {
         return new R();
     }
 
-    @Override
+
     public R put(String key, Object value) {
         super.put(key, value);
         return this;
     }
 }
+

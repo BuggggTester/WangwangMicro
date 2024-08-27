@@ -1,11 +1,11 @@
 package com.example.wangwangmicro.controller;
 
 import com.example.wangwangmicro.Entity.Order;
+import com.example.wangwangmicro.Entity.R;
 import com.example.wangwangmicro.client.HotelRequest;
 import com.example.wangwangmicro.constant.OrderType;
 import com.example.wangwangmicro.constant.PaymentMethod;
 import com.example.wangwangmicro.service.OrderService;
-import com.example.wangwangmicro.utils.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
