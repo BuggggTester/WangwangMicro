@@ -55,6 +55,7 @@ pipeline {
                     try {
                         sh 'pwd'
                         sh 'ls -al'
+                        sh 'touch .dockerignore'
 
                         sh '''
                             docker login -u mosscrowd -p shuhaojun040203
