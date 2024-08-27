@@ -1,12 +1,12 @@
 package com.example.wangwangmicro.controller;
 
 import com.example.wangwangmicro.Entity.Order;
+import com.example.wangwangmicro.Entity.R;
 import com.example.wangwangmicro.client.FoodRequest;
 import com.example.wangwangmicro.client.HotelRequest;
 import com.example.wangwangmicro.constant.OrderType;
 import com.example.wangwangmicro.constant.PaymentMethod;
 import com.example.wangwangmicro.service.OrderService;
-import com.example.wangwangmicro.utils.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,44 +17,46 @@ import java.util.Map;
 
 import static com.example.wangwangmicro.constant.OrderType.HOTEL;
 
-
 @RestController
 @RequestMapping(value = "/Order")
 @CrossOrigin
 @Slf4j
 public class OrderController {
 
+    private static final OrderType FOOD = null;
     @Autowired
     private OrderService orderService;
 
     @GetMapping("/hotel/bookHotel")
-    int createOrder(@RequestBody HotelRequest hotelRequest) {
+    R createOrder(@RequestBody HotelRequest hotelRequest) {
         int reservationId =  orderService.createHotelOrder(hotelRequest);
         Timestamp now = new Timestamp(System.currentTimeMillis());
 
         Order order = new Order();
         order.setUserId(hotelRequest.getUserId());
+        order.setPayment(hotelRequest.getPayment());
+
         order.setOrderCreateTime(now);
         order.setOrderType(HOTEL);
         order.setReservationId(reservationId);
-        order.setPayment(hotelRequest.getPayment());
-        
-        return orderService.createOrder(order);
+
+        int returnValue = orderService.createOrder(order);
+        return R.ok(String.valueOf(returnValue));
     }
 
     @GetMapping("/food/buyFood")
-    int createOrder(@RequestBody FoodRequest foodRequest) {
+    R createOrder(@RequestBody FoodRequest foodRequest) {
         int reservationId =  orderService.createFoodOrder(foodRequest);
         Timestamp now = new Timestamp(System.currentTimeMillis());
 
         Order order = new Order();
         order.setUserId(foodRequest.getUserId());
         order.setOrderCreateTime(now);
-        order.setOrderType(HOTEL);
+        order.setOrderType(FOOD);
         order.setReservationId(reservationId);
         order.setPayment(foodRequest.getPayment());
-        
-        return orderService.createOrder(order);
+        int returnValue = orderService.createOrder(order);
+        return R.ok(String.valueOf(returnValue));
     }
 
 

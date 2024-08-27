@@ -11,5 +11,7 @@ import javax.annotation.sql.DataSourceDefinitions;
 public class FoodRequest {
     private int userId;
     private int foodId;
+    private int tripId;
     private BigDecimal payment;
+    private int quantity;
 }
