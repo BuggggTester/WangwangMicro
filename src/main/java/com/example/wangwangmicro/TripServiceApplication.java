@@ -1,13 +1,15 @@
 package com.example.wangwangmicro;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class WangwangMicroApplication {
+@MapperScan("com.example.wangwang.dao")
+public class TripServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WangwangMicroApplication.class, args);
+		SpringApplication.run(TripServiceApplication.class, args);
 	}
 
 }
