@@ -53,6 +53,9 @@ pipeline {
                 echo 'Building Docker image...'
                 script {
                     try {
+                        sh 'pwd'
+                        sh 'ls -al'
+
                         sh '''
                             docker login -u mosscrowd -p shuhaojun040203
                             docker build -t $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG -f Dockerfile .
