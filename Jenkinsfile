@@ -58,7 +58,7 @@ pipeline {
 
                         sh '''
                             docker login -u mosscrowd -p shuhaojun040203
-                            docker build -t $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG -f Dockerfile .
+                            docker build -t $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG .
                         '''
                     } catch (Exception e) {
                         echo "Docker build failed: ${e.message}"
