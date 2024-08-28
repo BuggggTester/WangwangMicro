@@ -1,8 +1,8 @@
 package com.example.wangwangmicro.entity;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 

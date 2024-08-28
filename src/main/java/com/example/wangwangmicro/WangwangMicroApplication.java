@@ -5,11 +5,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.example.wangwang.dao")
-public class TripServiceApplication {
+@MapperScan("com.example.wangwangmicro.dao")
+@EnableFeignClients
+public class WangwangMicroApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TripServiceApplication.class, args);
+		SpringApplication.run(WangwangMicroApplication.class, args);
 	}
 
 }

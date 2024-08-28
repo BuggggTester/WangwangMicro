@@ -1,6 +1,5 @@
 package com.example.wangwangmicro.controller;
 
-import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.wangwangmicro.entity.common.R;
