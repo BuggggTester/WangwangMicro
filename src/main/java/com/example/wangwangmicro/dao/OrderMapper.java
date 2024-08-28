@@ -1,9 +1,13 @@
 package com.example.wangwangmicro.dao;
 
+import com.example.wangwangmicro.Entity.FoodOrder;
+import com.example.wangwangmicro.Entity.HotelOrder;
 import com.example.wangwangmicro.Entity.Order;
+import com.example.wangwangmicro.Entity.TripOrder;
 import com.example.wangwangmicro.constant.OrderType;
 import com.example.wangwangmicro.constant.PaymentMethod;
 import com.example.wangwangmicro.constant.RoomType;
+import com.example.wangwangmicro.constant.SeatType;
 import org.apache.ibatis.annotations.*;
 
 import java.sql.Timestamp;
@@ -30,10 +34,27 @@ public interface OrderMapper {
                          @Param("checkInDate") LocalDate checkInDate,
                          @Param("checkOutDate") LocalDate checkOutDate);
 
-    @Insert("INSERT INTO food_order (food_id) " +
-            "VALUES (#{foodId})")
+    @Insert("INSERT INTO food_order (food_id, trip_id, quantity) " +
+            "VALUES (#{foodId}, #{tripId}, #{quantity})")
     @SelectKey(statement = "SELECT LAST_INSERT_ID() AS id", keyProperty = "id", before = false, resultType = int.class)
-    int createFoodOrder(@Param("foodId") int hotelId);
+    int createFoodOrder(@Param("foodId") int foodId,
+                        @Param("tripId") int tripId,
+                        @Param("quantity") int quantity);
+
+    @Insert("INSERT INTO tripp_order (trip_id, carriage, row, seat, departure_id, destination_id, seat_type, passage_id) " +
+            "VALUES (#{tripId}, #{carriage}, #{row}, #{seat}, #{departureId}, #{destinationId}, #{seatType}, #{passageId})")
+    @SelectKey(statement = "SELECT LAST_INSERT_ID() AS id", keyProperty = "id", before = false, resultType = int.class)
+    int createTrippOrder(@Param("tripId") int tripId,
+                         @Param("carriage") int carriage,
+                         @Param("row") int row,
+                         @Param("seat") int seat,
+                         @Param("departureId") int departureId,
+                         @Param("destinationId") int destinationId,
+                         @Param("seatType") SeatType seatType,
+                         @Param("passageId") int passageId);
+
+
+
 
     // 支付时调用
     @Update("UPDATE order SET state = 'PAID', pay_time = NOW() WHERE id = #{id}")
@@ -88,7 +109,7 @@ public interface OrderMapper {
 
     
     @Update("UPDATE order SET state = 'PAID', finish_time = NOW() WHERE id = #{id}")
-    int confirmOrder(@Param("id") int id);
+    boolean confirmOrder(@Param("id") int id);
     
     
     @Select("select * from order where id = #{id} limit 1")
@@ -103,5 +124,14 @@ public interface OrderMapper {
     
     @Update("UPDATE order SET user_id = #{userId}, reservation_id = #{reservationId}, order_type = #{orderType}, state = #{state}, payment = #{payment}, payment_method = #{paymentMethod}, pay_time = #{payTime}, finish_time = #{finishTime}, order_create_time = #{orderCreateTime} WHERE id = #{id}")
     void updateOrder(Order order);
+
+    @Select("SELECT * FROM hotel_order WHERE reservation_id = #{reservationId}")
+    HotelOrder getHotelDetail(@Param("reservationId") int reservationId);
+
+    @Select("SELECT * FROM food_order WHERE reservation_id = #{reservationId}")
+    FoodOrder getFoodDetail(@Param("reservationId") int reservationId);
+
+    @Select("SELECT * FROM trip_order WHERE reservation_id = #{reservationId}")
+    TripOrder getTripDetail(@Param("reservationId") int reservationId);
 
 }

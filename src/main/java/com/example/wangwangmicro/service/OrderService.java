@@ -1,9 +1,9 @@
 package com.example.wangwangmicro.service;
 
-import com.example.wangwangmicro.Entity.HotelOrder;
 import com.example.wangwangmicro.Entity.Order;
-import com.example.wangwangmicro.client.FoodRequest;
-import com.example.wangwangmicro.client.HotelRequest;
+import com.example.wangwangmicro.client.Requeat.FoodRequest;
+import com.example.wangwangmicro.client.Requeat.HotelRequest;
+import com.example.wangwangmicro.client.Requeat.TripRequest;
 import com.example.wangwangmicro.constant.OrderType;
 import com.example.wangwangmicro.constant.PaymentMethod;
 import org.springframework.stereotype.Component;
@@ -18,6 +18,7 @@ public interface OrderService {
 
     int createHotelOrder(HotelRequest hotelRequest);
     int createFoodOrder(FoodRequest foodRequest);
+    int createTripOrder(TripRequest tripRequest);
 
     // 根据订单ID获取订单
     Order getOrder(int id);
@@ -38,7 +39,7 @@ public interface OrderService {
 
     List<Order> getOrdersByType(int userId, OrderType orderType);
     Order selectOrderById(int id);
-    int confirmOrder(int id);
+    boolean confirmOrder(int id);
 
     // 更新订单
     void updateOrder(Order order);
@@ -55,4 +56,5 @@ public interface OrderService {
 
     boolean payOrder(int id);
 
+    public <T> T getOrderDetail(Order order);
 }

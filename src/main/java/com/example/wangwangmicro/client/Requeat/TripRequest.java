@@ -1,4 +1,4 @@
-package com.example.wangwangmicro.client;
+package com.example.wangwangmicro.client.Requeat;
 
 
 import com.example.wangwangmicro.constant.SeatType;
@@ -8,6 +8,11 @@ import java.math.BigDecimal;
 
 @Data
 public class TripRequest {
+    private int userId;
+    private BigDecimal payment;
+    private int passageId;
+
+
     private int tripId;
     private int carriage;
     private int row;
@@ -15,6 +20,4 @@ public class TripRequest {
     private int departureId;
     private int destinationId;
     private SeatType seatType;
-    private int passageId;
-    private BigDecimal payment;
 }

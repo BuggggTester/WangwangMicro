@@ -1,9 +1,12 @@
 package com.example.wangwangmicro.service;
 
+import com.example.wangwangmicro.Entity.FoodOrder;
 import com.example.wangwangmicro.Entity.HotelOrder;
 import com.example.wangwangmicro.Entity.Order;
-import com.example.wangwangmicro.client.FoodRequest;
-import com.example.wangwangmicro.client.HotelRequest;
+import com.example.wangwangmicro.Entity.TripOrder;
+import com.example.wangwangmicro.client.Requeat.FoodRequest;
+import com.example.wangwangmicro.client.Requeat.HotelRequest;
+import com.example.wangwangmicro.client.Requeat.TripRequest;
 import com.example.wangwangmicro.constant.OrderType;
 import com.example.wangwangmicro.constant.PaymentMethod;
 import com.example.wangwangmicro.dao.OrderMapper;
@@ -31,9 +34,15 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public int createFoodOrder(FoodRequest foodRequest) {
-        return orderMapper.createFoodOrder(foodRequest.getFoodId());
+        return orderMapper.createFoodOrder(foodRequest.getFoodId(), foodRequest.getTripId(), foodRequest.getQuantity());
     }
 
+    @Override
+    public int createTripOrder(TripRequest tripRequest) {
+        return orderMapper.createTrippOrder(tripRequest.getTripId(), tripRequest.getCarriage(), tripRequest.getRow(),
+                tripRequest.getSeat(), tripRequest.getDepartureId(), tripRequest.getDestinationId(),
+                tripRequest.getSeatType(), tripRequest.getPassageId());
+    }
 
 
     @Override
@@ -82,7 +91,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public int confirmOrder(int id) {
+    public boolean confirmOrder(int id) {
         return orderMapper.confirmOrder(id);
     }
 
@@ -116,5 +125,41 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.payOrder(id) == 1;
     }
 
+    public <T> T getOrderDetail(Order order) {
+        int reservationId = order.getReservationId();
+        switch (order.getOrderType()) {
+            case HOTEL:
+                HotelOrder hotelOrder = orderMapper.getHotelDetail(reservationId);
+                HotelRequest hotelRequest = new HotelRequest();
+
+                hotelRequest.setHotelId(hotelOrder.getHotelId());
+                hotelRequest.setRoomType(hotelOrder.getRoomType());
+                hotelRequest.setStartDate(hotelOrder.getCheckInDate());
+                hotelRequest.setEndDate(hotelOrder.getCheckOutDate());
+                return (T) hotelRequest;
+            case TRAIN_MEAL:
+                FoodOrder foodOrder = orderMapper.getFoodDetail(reservationId);
+                FoodRequest foodRequest = new FoodRequest();
+
+                foodRequest.setQuantity(foodOrder.getQuantity());
+                foodRequest.setTripId(foodOrder.getTripId());
+                foodRequest.setFoodId(foodOrder.getFoodId());
+                return (T) foodRequest;
+            // 其他 case ...
+            case TRAIN_TICKET:
+                TripOrder tripOrder = orderMapper.getTripDetail(reservationId);
+                TripRequest tripRequest = new TripRequest();
+
+                tripRequest.setTripId(tripOrder.getTripId());
+                tripRequest.setCarriage(tripOrder.getCarriage());
+                tripRequest.setRow(tripOrder.getRow());
+                tripRequest.setSeat(tripOrder.getSeat());
+                tripRequest.setDepartureId(tripOrder.getDepartureId());
+                tripRequest.setDestinationId(tripOrder.getDestinationId());
+                tripRequest.setSeatType(tripOrder.getSeatType());
+                return (T) tripRequest;
+        }
+        return null;
+    }
 
 }
