@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan("com.example.wangwangmicro.dao")
+@EnableFeignClients
 public class WangwangMicroApplication {
 
 	public static void main(String[] args) {
