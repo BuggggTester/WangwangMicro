@@ -17,9 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.example.wangwangmicro.constant.OrderType.*;
 
@@ -151,22 +153,48 @@ public class OrderController {
         return R.ok(responseMap);
     }
 
+
+    /*
+    获取某个用户的所有订单
+    为了性能要求，不提供给出所有订单详细信息的选项，只提供所有订单的基础信息。
+    返回一个list<Order>;
+     */
     @GetMapping("/getAll/{userId}")
-    public List<Order> getAllOrders(@PathVariable int userId) {
-        try {
-            return orderService.getAllOrders(userId);
-        } catch (Exception e) {
-            return null;
+    public R getAllOrders(@PathVariable int userId) {
+        // 获取用户的所有订单
+        List<Order> orders = orderService.getAllOrders(userId);
+        return R.ok(orders);
+    }
+
+/*
+    @RequestMapping(value="/getAllFood")
+    public void getAllFoodOrders(@RequestParam("userId") int userId) {
+        List<Order> orders = orderService.getAllOrders(userId);
+
+        // 获取所有订单ID
+        List<Integer> orderIds = orders.stream()
+                .map(Order::getId)
+                .collect(Collectors.toList());
+
+        // 批量获取所有订单详细信息
+        //Map<Integer, OrderDetail> orderDetailsMap = orderService.getAllTrainMealOrders(orderIds);
+
+        // 创建一个List来存储每个订单及其详细信息
+        List<Map<String, Object>> ordersList = new ArrayList<>();
+
+        // 遍历订单列表，将详细信息添加到结果中
+        for (Order order : orders) {
+            Map<String, Object> orderDetails = new HashMap<>();
+            orderDetails.put("order", order);
+            orderDetails.put("detail", orderDetailsMap.get(order.getId()));
+            ordersList.add(orderDetails);
         }
+
+        // 返回所有订单及其详细信息
+        return R.ok(ordersList);
     }
 
-
-    @RequestMapping(value="/getAllFoodReservations")
-    public void getAllFoodOrders(@RequestParam("userId")int userId) {
-        //todo
-    }
-
-
+*/
     @GetMapping("/getAllTrainTickets/{userId}")
     public List<Order> getAllTrainTicketOrders(@PathVariable int userId) {
         return orderService.getAllTrainTicketOrders(userId);
