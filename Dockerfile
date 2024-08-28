@@ -1,7 +1,7 @@
 # Dockerfile
 
 # 使用官方的 OpenJDK 21 作为基础镜像
-FROM openjdk:21-slim
+FROM openjdk:17-slim
 
 # 将 JAR 文件复制到容器中
 COPY target/demo-0.0.1-SNAPSHOT.jar /app.jar
