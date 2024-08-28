@@ -28,6 +28,7 @@
 
     <dependencyManagement>
         <dependencies>
+
             <!-- Spring Cloud Dependencies -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
@@ -66,6 +67,10 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
         <!-- Spring Boot Web Starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -109,10 +114,15 @@
         </dependency>
 
         <!-- MyBatis -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
             <version>3.5.14</version>
+        </dependency> -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>3.0.2</version> <!-- 上面的MyBatis 有核心功能库，而没有包含与 Spring Boot 集成所需的类和配置，所以要加这个 -->
         </dependency>
 
         <!-- Bouncy Castle -->
