@@ -1,6 +1,5 @@
 package com.example.wangwangmicro.client;
 
-
 import com.example.wangwangmicro.constant.SeatType;
 import lombok.Data;
 
