@@ -46,7 +46,7 @@ public class OrderController {
     执行向对应订单数据库插入订购数据，以及向总订单数据库插入数据的操作
     返回总订单ID
      */
-    @GetMapping("/hotel/bookHotel")
+    @PostMapping("/hotel/bookHotel")
     public R createOrder(@RequestBody HotelRequest hotelRequest) {
         int reservationId =  orderService.createHotelOrder(hotelRequest);
         Timestamp now = new Timestamp(System.currentTimeMillis());
@@ -60,10 +60,13 @@ public class OrderController {
         order.setReservationId(reservationId);
 
         int returnValue = orderService.createOrder(order);
-        return R.ok(String.valueOf(returnValue));
+        if (returnValue != 0) {
+            return R.ok(String.valueOf(returnValue));
+        }
+        return R.error("error");
     }
 
-    @GetMapping("/food/buyFood")
+    @PostMapping("/food/buyFood")
     public R createOrder(@RequestBody FoodRequest foodRequest) {
         int reservationId =  orderService.createFoodOrder(foodRequest);
         Timestamp now = new Timestamp(System.currentTimeMillis());
@@ -75,10 +78,13 @@ public class OrderController {
         order.setReservationId(reservationId);
         order.setPayment(foodRequest.getPayment());
         int returnValue = orderService.createOrder(order);
-        return R.ok(String.valueOf(returnValue));
+        if (returnValue != 0) {
+            return R.ok(String.valueOf(returnValue));
+        }
+        return R.error("error");
     }
 
-    @GetMapping("trip/buyTrip")
+    @PostMapping("trip/buyTrip")
     public R createOrder(@RequestBody TripRequest tripRequest) {
         int reservationId = orderService.createTripOrder(tripRequest);
         Timestamp now = new Timestamp(System.currentTimeMillis());
@@ -90,7 +96,10 @@ public class OrderController {
         order.setReservationId(reservationId);
         order.setPayment(tripRequest.getPayment());
         int returnValue = orderService.createOrder(order);
-        return R.ok(String.valueOf(returnValue));
+        if (returnValue != 0) {
+            return R.ok(String.valueOf(returnValue));
+        }
+        return R.error("error");
     }
 
     /*
@@ -118,8 +127,9 @@ public class OrderController {
                     return R.error("order type not supported");
             }
         }
-        return R.error("Failed to cancel order: " + orderId);
+        return R.ok("success");
     }
+
 
 
     /*

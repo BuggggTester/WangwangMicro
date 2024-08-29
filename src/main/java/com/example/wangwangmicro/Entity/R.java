@@ -17,6 +17,10 @@ public class R {
         return new R(200, "Success", null);
     }
 
+    public static R ok(String message) {
+        return new R(200, message, null);
+    }
+
     // 静态方法，返回一个包含数据的成功 R 对象
     public static R ok(Object data) {
         return new R(200, "Success", data);
