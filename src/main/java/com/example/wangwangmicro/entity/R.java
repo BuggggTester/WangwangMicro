@@ -1,10 +1,9 @@
 package com.example.wangwangmicro.entity;
-
-
 //import java.io.Serializable;
 import java.util.HashMap;
 //import java.util.List;
 import java.util.Map;
+
 public class R extends HashMap<String, Object> {
 
     private static final long serialVersionUID = 1L;

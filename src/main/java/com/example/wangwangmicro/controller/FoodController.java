@@ -100,7 +100,7 @@ public class FoodController {
             out.flush();
             out.close();
         } catch (Exception e) {
-            return R.error(e.toString());
+            return R.error("Upload error: " + e.getMessage());
         }
         return R.ok("上传成功！");
     }
