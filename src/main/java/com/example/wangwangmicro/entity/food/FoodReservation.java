@@ -49,4 +49,13 @@ public class FoodReservation {
     public int getQuantity() {
         return this.quantity;
     }
+    public void setFoodId(int i) {
+        this.food_id = i;
+    }
+    public void setUserId(int i) {
+        this.user_id = i;
+    }
+    public void setTripId(int i) {
+        this.trip_id = i;
+    }
 }

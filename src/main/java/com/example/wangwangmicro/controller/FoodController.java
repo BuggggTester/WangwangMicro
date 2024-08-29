@@ -10,6 +10,8 @@ import com.example.wangwangmicro.service.FoodService;
 //import org.springframework.web.client.RestTemplate; //用于http调用引入其他容器的信息功能
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,14 +40,20 @@ public class FoodController {
     @Autowired
     private OrderClient orderClient;
 
-    @RequestMapping(value="/select/tripId") //查询某时段列车的食物列表,调用了tripClient
-    public List<Food> selectFoodsById(@RequestParam("trainId")String trainId, @RequestParam("time") Timestamp time) {
+    @RequestMapping(value="/select/tripId")
+    public ResponseEntity<List<Food>> selectFoodsById(@RequestParam("trainId") String trainId, @RequestParam("time") Timestamp time) {
         TripRequest tripRequest = new TripRequest();
         tripRequest.setTrainId(trainId);
         tripRequest.setTime(time);
-        Integer tripId = tripClient.selectIdByTrainAndTime(tripRequest); 
-        List<Food> foodList = foodService.selectFoodsByTripId(tripId);
-        return foodList;
+        
+        Integer tripId = tripClient.selectIdByTrainAndTime(tripRequest);
+        
+        if (tripId == -1) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        List<Food> foodList = foodService.selectFoodsByTripId(tripId);        
+        return ResponseEntity.ok(foodList);
     }
 
     @RequestMapping(value = "/create")
@@ -73,6 +81,7 @@ public class FoodController {
             return R.error(e.toString());
         }
     }
+    
     @PostMapping(value="/upload/image")
     public R uploadFile(@RequestParam("File") MultipartFile file, @RequestParam("foodId") int foodId) {
         String filePath = foodUrl;

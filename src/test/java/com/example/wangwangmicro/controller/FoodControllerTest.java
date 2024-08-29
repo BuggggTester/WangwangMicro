@@ -3,6 +3,7 @@ package com.example.wangwangmicro.controller;
 import com.example.wangwangmicro.client.OrderClient;
 import com.example.wangwangmicro.client.TripClient;
 import com.example.wangwangmicro.client.TripRequest;
+import com.example.wangwangmicro.controller.FoodController;
 import com.example.wangwangmicro.entity.R;
 import com.example.wangwangmicro.entity.food.Food;
 import com.example.wangwangmicro.entity.food.FoodReservation;
@@ -72,6 +73,26 @@ public class FoodControllerTest {
     }
 
     @Test
+    public void testSelectFoodsById_Failure() throws Exception {
+        // Mock data
+        String trainId = "A123";
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+
+        // Simulate failure scenario: tripClient returns null or throws an exception
+        when(tripClient.selectIdByTrainAndTime(any(TripRequest.class))).thenReturn(-1);
+
+        // Perform request expecting an error
+        mockMvc.perform(get("/food/select/tripId")
+                .param("trainId", trainId)
+                .param("time", time.toString()))
+                .andExpect(status().isNotFound()); // Or other appropriate status
+
+        verify(tripClient, times(1)).selectIdByTrainAndTime(any(TripRequest.class));
+        verify(foodService, never()).selectFoodsByTripId(anyInt());
+    }
+
+
+    @Test
     public void testCreateFood() throws Exception {
         String foodName = "Pizza";
         double price = 10.99;
@@ -88,6 +109,28 @@ public class FoodControllerTest {
 
         verify(foodService, times(1)).createFood(eq(foodName), eq(price), eq(tripId), anyString());
     }
+
+    @Test
+    public void testCreateFood_Failure() throws Exception {
+        String foodName = "Pizza";
+        double price = 10.99;
+        int tripId = 1;
+
+        // Simulate failure scenario: foodService throws an exception
+        doThrow(new RuntimeException("Database error")).when(foodService)
+                .createFood(eq(foodName), eq(price), eq(tripId), anyString());
+
+        // Perform request expecting an error
+        mockMvc.perform(post("/food/create")
+                .param("foodName", foodName)
+                .param("price", String.valueOf(price))
+                .param("tripId", String.valueOf(tripId)))
+                .andExpect(status().isInternalServerError()) // Or other appropriate status
+                .andExpect(jsonPath("$.message").value("Database error"));
+
+        verify(foodService, times(1)).createFood(eq(foodName), eq(price), eq(tripId), anyString());
+    }
+
 
     @Test
     public void testCreateFoodReservation() throws Exception {
@@ -113,6 +156,22 @@ public class FoodControllerTest {
     }
 
     @Test
+    public void testCreateFoodReservation_Failure() throws Exception {
+        // Simulate failure scenario: foodService.buyFood throws an exception
+        doThrow(new RuntimeException("Reservation error")).when(foodService).buyFood(any(FoodReservation.class));
+
+        mockMvc.perform(post("/food/create/reservation")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"foodId\":1,\"userId\":1,\"tripId\":1,\"quantity\":2}"))
+                .andExpect(status().isInternalServerError()) // Or other appropriate status
+                .andExpect(jsonPath("$.message").value("Reservation error"));
+
+        verify(foodService, times(1)).buyFood(any(FoodReservation.class));
+        verify(orderClient, never()).createOrder(any());
+    }
+
+
+    @Test
     public void testUploadFile() throws Exception {
         MockMultipartFile mockFile = new MockMultipartFile("File", "test.png", MediaType.IMAGE_PNG_VALUE, "test data".getBytes());
         int foodId = 1;
@@ -127,4 +186,22 @@ public class FoodControllerTest {
 
         verify(foodService, times(1)).uploadFoodImage(anyString(), eq(foodId));
     }
+
+    @Test
+    public void testUploadFile_Failure() throws Exception {
+        MockMultipartFile mockFile = new MockMultipartFile("File", "test.png", MediaType.IMAGE_PNG_VALUE, "test data".getBytes());
+        int foodId = 1;
+
+        // Simulate failure scenario: uploadFoodImage throws an exception
+        doThrow(new RuntimeException("Upload error")).when(foodService).uploadFoodImage(anyString(), eq(foodId));
+
+        mockMvc.perform(multipart("/food/upload/image")
+                .file(mockFile)
+                .param("foodId", String.valueOf(foodId)))
+                .andExpect(status().isInternalServerError()) // Or other appropriate status
+                .andExpect(jsonPath("$.message").value("Upload error"));
+
+        verify(foodService, times(1)).uploadFoodImage(anyString(), eq(foodId));
+    }
+
 }
