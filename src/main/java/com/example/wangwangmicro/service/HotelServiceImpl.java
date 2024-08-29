@@ -30,7 +30,7 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public int bookRoom(int hotelId, RoomType roomType, LocalDate startDate, LocalDate endDate) {
+    public boolean bookRoom(int hotelId, RoomType roomType, LocalDate startDate, LocalDate endDate) {
         return hotelMapper.bookRoom(hotelId, roomType, startDate, endDate);
     }
 

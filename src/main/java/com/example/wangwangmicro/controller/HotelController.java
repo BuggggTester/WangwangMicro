@@ -67,13 +67,17 @@ public class HotelController {
      */
     @PostMapping("/bookRoom")
     public R bookRoom(@RequestBody OrderRequest orderRequest) {
-        int returnValue = hotelService.bookRoom(orderRequest.getHotelId(),
-                orderRequest.getRoomType(), orderRequest.getStartDate(), orderRequest.getEndDate());
-        if (returnValue == 0) {
+        boolean returnValue = hotelService.bookRoom(
+                orderRequest.getHotelId(),
+                orderRequest.getRoomType(),
+                orderRequest.getStartDate(),
+                orderRequest.getEndDate());
+
+        if (!returnValue) {
             return R.error("no available");
-        }
-        else {
-            return R.ok(orderClient.createOrder(orderRequest));
+        } else {
+            int orderId = orderClient.createOrder(orderRequest);
+            return R.ok(String.valueOf(orderId));
         }
     }
 
@@ -85,7 +89,7 @@ public class HotelController {
             return R.error("no available");
         }
         else {
-            return R.ok();
+            return R.ok("ok");
         }
     }
 }

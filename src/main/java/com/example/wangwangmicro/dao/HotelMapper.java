@@ -21,7 +21,7 @@ public interface HotelMapper {
     @Update("UPDATE roomability SET quantity = quantity - 1 " +
             "WHERE hotel_id = #{hotelId} AND room_type = #{roomType} AND date BETWEEN #{startDate} AND #{endDate} " +
             "AND quantity > 0")
-    int bookRoom(@Param("hotelId") int hotelId,
+    boolean bookRoom(@Param("hotelId") int hotelId,
                  @Param("roomType") RoomType roomType,
                  @Param("startDate") LocalDate startDate,
                  @Param("endDate") LocalDate endDate);
