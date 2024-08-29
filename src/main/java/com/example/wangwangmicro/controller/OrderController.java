@@ -1,13 +1,12 @@
 package com.example.wangwangmicro.controller;
 
-import com.example.wangwangmicro.Entity.HotelOrder;
 import com.example.wangwangmicro.Entity.Order;
 import com.example.wangwangmicro.Entity.R;
 import com.example.wangwangmicro.client.FoodClient;
 import com.example.wangwangmicro.client.HotelClient;
-import com.example.wangwangmicro.client.Requeat.FoodRequest;
-import com.example.wangwangmicro.client.Requeat.HotelRequest;
-import com.example.wangwangmicro.client.Requeat.TripRequest;
+import com.example.wangwangmicro.client.Request.FoodRequest;
+import com.example.wangwangmicro.client.Request.HotelRequest;
+import com.example.wangwangmicro.client.Request.TripRequest;
 import com.example.wangwangmicro.client.TripClient;
 import com.example.wangwangmicro.constant.OrderType;
 import com.example.wangwangmicro.constant.PaymentMethod;
@@ -17,11 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static com.example.wangwangmicro.constant.OrderType.*;
 

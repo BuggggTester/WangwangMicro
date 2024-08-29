@@ -1,9 +1,9 @@
 package com.example.wangwangmicro.service;
 
 import com.example.wangwangmicro.Entity.Order;
-import com.example.wangwangmicro.client.Requeat.FoodRequest;
-import com.example.wangwangmicro.client.Requeat.HotelRequest;
-import com.example.wangwangmicro.client.Requeat.TripRequest;
+import com.example.wangwangmicro.client.Request.FoodRequest;
+import com.example.wangwangmicro.client.Request.HotelRequest;
+import com.example.wangwangmicro.client.Request.TripRequest;
 import com.example.wangwangmicro.constant.OrderType;
 import com.example.wangwangmicro.constant.PaymentMethod;
 import org.springframework.stereotype.Component;

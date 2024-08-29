@@ -1,6 +1,6 @@
 package com.example.wangwangmicro.client;
 
-import com.example.wangwangmicro.client.Requeat.HotelRequest;
+import com.example.wangwangmicro.client.Request.HotelRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;

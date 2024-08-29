@@ -1,4 +1,4 @@
-package com.example.wangwangmicro.client.Requeat;
+package com.example.wangwangmicro.client.Request;
 
 import lombok.Data;
 import java.math.BigDecimal;
