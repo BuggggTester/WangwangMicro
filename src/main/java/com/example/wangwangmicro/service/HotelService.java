@@ -13,4 +13,6 @@ public interface HotelService {
     int getAbilityRoomQuantity(int hotelId, RoomType roomType, LocalDate startDate, LocalDate endDate);
 
     int bookRoom(int hotelId, RoomType roomType, LocalDate startDate, LocalDate endDate);
+
+    int cancelRoom(int hotelId, RoomType roomType, LocalDate startDate, LocalDate endDate);
 }

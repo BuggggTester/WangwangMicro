@@ -3,6 +3,7 @@ package com.example.wangwangmicro.controller;
 import com.example.wangwangmicro.client.OrderClient;
 import com.example.wangwangmicro.client.OrderRequest;
 import com.example.wangwangmicro.common.constant.RoomType;
+import com.example.wangwangmicro.entity.R;
 import com.example.wangwangmicro.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -65,26 +66,26 @@ public class HotelController {
      * @return 预定结果
      */
     @PostMapping("/bookRoom")
-    public int bookRoom(@RequestBody OrderRequest orderRequest) {
+    public R bookRoom(@RequestBody OrderRequest orderRequest) {
         int returnValue = hotelService.bookRoom(orderRequest.getHotelId(),
                 orderRequest.getRoomType(), orderRequest.getStartDate(), orderRequest.getEndDate());
         if (returnValue == 0) {
-            return returnValue;
+            return R.error("no available");
         }
         else {
-            return orderClient.createOrder(orderRequest);
+            return R.ok(orderClient.createOrder(orderRequest));
         }
     }
 
     @PostMapping("/cancelHotel")
-    public int cancelRoom(@RequestBody OrderRequest orderRequest) {
+    public R cancelRoom(@RequestBody OrderRequest orderRequest) {
         int returnValue = hotelService.cancelRoom(orderRequest.getHotelId(),
                 orderRequest.getRoomType(), orderRequest.getStartDate(), orderRequest.getEndDate());
         if (returnValue == 0) {
-            return returnValue;
+            return R.error("no available");
         }
         else {
-            return 
+            return R.ok();
         }
     }
 }

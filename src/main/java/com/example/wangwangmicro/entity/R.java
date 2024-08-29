@@ -1,53 +1,59 @@
 package com.example.wangwangmicro.entity;
 
+public class R {
+    private int code; // 状态码
+    private String message; // 返回消息
+    private Object data; // 返回数据
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-public class R extends HashMap<String, Object> {
-
-    private static final long serialVersionUID = 1L;
-
-    public R() {
-        put("code", 200);
+    // 私有构造函数，防止外部直接实例化
+    private R(int code, String message, Object data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
     }
 
-    public static R error() {
-        return error(500, "未知异常，请联系管理员");
-    }
-
-    public static R error(String msg) {
-        return error(500, msg);
-    }
-
-    public static R error(int code, String msg) {
-        R r = new R();
-        r.put("code", code);
-        r.put("msg", msg);
-        return r;
-    }
-
-    public static R ok(String msg) {
-        R r = new R();
-        r.put("msg", msg);
-        return r;
-    }
-
-    public static R ok(Map<String, Object> map) {
-        R r = new R();
-        r.putAll(map);
-        return r;
-    }
-
+    // 静态方法，返回一个表示成功的 R 对象
     public static R ok() {
-        return new R();
+        return new R(200, "Success", null);
     }
 
+    // 静态方法，返回一个包含数据的成功 R 对象
+    public static R ok(Object data) {
+        return new R(200, "Success", data);
+    }
 
-    public R put(String key, Object value) {
-        super.put(key, value);
-        return this;
+    // 静态方法，返回一个自定义消息的成功 R 对象
+    public static R ok(String message, Object data) {
+        return new R(200, message, data);
+    }
+
+    // 静态方法，返回一个错误的 R 对象
+    public static R error(String message) {
+        return new R(500, message, null);
+    }
+
+    // getter 和 setter 方法
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
     }
 }
-
