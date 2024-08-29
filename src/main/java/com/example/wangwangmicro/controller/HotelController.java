@@ -19,9 +19,6 @@ public class HotelController {
     @Autowired
     private OrderClient orderClient;
 
-    @Autowired
-    private OrderClient hotelClient;
-
     /**
      * 检查指定酒店的房间是否有足够的剩余数量在指定日期范围内。
      *
@@ -69,13 +66,25 @@ public class HotelController {
      */
     @PostMapping("/bookRoom")
     public int bookRoom(@RequestBody OrderRequest orderRequest) {
-        int returnValue =  hotelService.bookRoom(orderRequest.getHotelId(),
+        int returnValue = hotelService.bookRoom(orderRequest.getHotelId(),
                 orderRequest.getRoomType(), orderRequest.getStartDate(), orderRequest.getEndDate());
         if (returnValue == 0) {
             return returnValue;
         }
         else {
             return orderClient.createOrder(orderRequest);
+        }
+    }
+
+    @PostMapping("/cancelHotel")
+    public int cancelRoom(@RequestBody OrderRequest orderRequest) {
+        int returnValue = hotelService.cancelRoom(orderRequest.getHotelId(),
+                orderRequest.getRoomType(), orderRequest.getStartDate(), orderRequest.getEndDate());
+        if (returnValue == 0) {
+            return returnValue;
+        }
+        else {
+            return 
         }
     }
 }
