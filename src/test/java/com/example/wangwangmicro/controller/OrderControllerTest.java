@@ -29,7 +29,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -160,6 +162,132 @@ public class OrderControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\"code\":500,\"message\":\"error\",\"data\":null}"));
     }
+
+    @Test
+    void testCancelOrderSuccess() throws Exception {
+        int orderId = 1;
+        Order order = new Order();
+        order.setOrderType(OrderType.HOTEL);
+
+        // 模拟 OrderService 和 Client 的行为
+        when(orderService.cancelOrder(orderId)).thenReturn(true);
+        when(orderService.getOrder(orderId)).thenReturn(order);
+
+        mockMvc.perform(post("/Order/cancelOrder")
+                        .param("id", String.valueOf(orderId)))
+                .andExpect(status().isOk())
+                .andExpect(content().string("{\"code\":200,\"message\":\"success\",\"data\":null}"));
+    }
+
+    @Test
+    void testCancelOrderFail() throws Exception {
+        int orderId = 1;
+        Order order = new Order();
+        order.setOrderType(OrderType.HOTEL);
+
+        // 模拟 OrderService 取消订单失败的情况
+        when(orderService.cancelOrder(orderId)).thenReturn(false);
+        when(orderService.getOrder(orderId)).thenReturn(order);
+
+        mockMvc.perform(post("/Order/cancelOrder")
+                        .param("id", String.valueOf(orderId)))
+                .andExpect(status().isOk())
+                .andExpect(content().string("{\"code\":200,\"message\":\"success\",\"data\":null}"));
+    }
+
+    @Test
+    void testConfirmOrderSuccess() throws Exception {
+        int orderId = 1;
+
+        // 模拟 OrderService 的行为
+        when(orderService.confirmOrder(orderId)).thenReturn(true);
+
+        mockMvc.perform(post("/Order/confirmOrder")
+                        .param("orderId", String.valueOf(orderId))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\"code\":200,\"message\":\"confirm order success\",\"data\":null}"));
+    }
+
+    @Test
+    void testConfirmOrderFailure() throws Exception {
+        int orderId = 2;
+
+        // 模拟 OrderService 的行为
+        when(orderService.confirmOrder(orderId)).thenReturn(false);
+
+        mockMvc.perform(post("/Order/confirmOrder")
+                        .param("orderId", String.valueOf(orderId))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\"code\":500,\"message\":\"confirm order failed\",\"data\":null}"));
+    }
+
+    @Test
+    void testGetOrderSuccess() throws Exception {
+        int orderId = 1;
+        Order order = new Order();  // 假设已经设置了order的相关属性
+        Map<String, Object> detail = new HashMap<>();  // 假设已经填充了order的详细信息
+
+        // 模拟 OrderService 的行为
+        when(orderService.getOrder(orderId)).thenReturn(order);
+        when(orderService.getOrderDetail(order)).thenReturn(detail);
+
+        Map<String, Object> expectedResponse = new HashMap<>();
+        expectedResponse.put("order", order);
+        expectedResponse.put("detail", detail);
+
+        mockMvc.perform(post("/Order/get/{orderId}", orderId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\"code\":200,\"message\": \"Success\",\"data\":" + new ObjectMapper().writeValueAsString(expectedResponse) + "}"));
+    }
+
+    @Test
+    void testGetOrderNotFound() throws Exception {
+        int orderId = 2;
+
+        // 模拟 OrderService 的行为
+        when(orderService.getOrder(orderId)).thenReturn(null);
+
+        mockMvc.perform(post("/Order/get/{orderId}", orderId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\"code\":500,\"message\":\"orderId not exists\",\"data\":null}"));
+    }
+
+    @Test
+    void testGetAllOrdersSuccess() throws Exception {
+        int userId = 1;
+        List<Order> orders = new ArrayList<>();
+        Order order1 = new Order(); // 设置 order1 的属性
+        Order order2 = new Order(); // 设置 order2 的属性
+        orders.add(order1);
+        orders.add(order2);
+
+        // 模拟 OrderService 的行为
+        when(orderService.getAllOrders(userId)).thenReturn(orders);
+
+        mockMvc.perform(post("/Order/getAll/{userId}", userId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\"code\":200,\"message\":\"Success\",\"data\":" + new ObjectMapper().writeValueAsString(orders) + "}"));
+    }
+
+    @Test
+    void testGetAllOrdersNotFound() throws Exception {
+        int userId = 2;
+
+        // 模拟 OrderService 的行为
+        when(orderService.getAllOrders(userId)).thenReturn(null);
+
+        mockMvc.perform(post("/Order/getAll/{userId}", userId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\"code\":500,\"message\":\"order not exists\",\"data\":null}"));
+    }
+
+
 
 }
 

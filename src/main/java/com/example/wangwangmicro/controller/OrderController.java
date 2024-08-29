@@ -151,9 +151,12 @@ public class OrderController {
     因为order的全部信息并不存储在一张表内，因此没有选择使用requestBody返回（不想再写三个新的request类）
     返回的是一个hashmap，一个键"order"对应基本信息，一个键"detail"对应详细信息
      */
-    @GetMapping("/get/{orderId}")
+    @PostMapping("/get/{orderId}")
     public R getOrder(@PathVariable int orderId) {
         Order order = orderService.getOrder(orderId);
+        if (order == null) {
+            return R.error("orderId not exists");
+        }
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("order", order);
         responseMap.put("detail", orderService.getOrderDetail(order));
@@ -166,10 +169,13 @@ public class OrderController {
     为了性能要求，不提供给出所有订单详细信息的选项，只提供所有订单的基础信息。
     返回一个list<Order>;
      */
-    @GetMapping("/getAll/{userId}")
+    @PostMapping("/getAll/{userId}")
     public R getAllOrders(@PathVariable int userId) {
         // 获取用户的所有订单
         List<Order> orders = orderService.getAllOrders(userId);
+        if (orders == null) {
+            return R.error("order not exists");
+        }
         return R.ok(orders);
     }
 
