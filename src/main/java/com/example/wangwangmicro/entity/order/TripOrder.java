@@ -1,6 +1,7 @@
 package com.example.wangwangmicro.entity.order;
 
-import javax.persistence.*;
+// import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

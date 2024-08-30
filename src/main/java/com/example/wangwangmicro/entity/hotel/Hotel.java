@@ -1,7 +1,8 @@
 package com.example.wangwangmicro.entity.hotel;
 
-import javax.persistence.CascadeType;
-import javax.persistence.OneToMany;
+// import javax.persistence.CascadeType;
+// import javax.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

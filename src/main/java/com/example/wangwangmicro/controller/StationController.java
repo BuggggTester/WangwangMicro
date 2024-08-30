@@ -1,6 +1,6 @@
 package com.example.wangwangmicro.controller;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 

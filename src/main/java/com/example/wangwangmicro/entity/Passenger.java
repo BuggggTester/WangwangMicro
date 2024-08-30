@@ -1,7 +1,8 @@
 package com.example.wangwangmicro.entity;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+// import javax.persistence.JoinColumn;
+// import javax.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
